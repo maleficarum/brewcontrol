@@ -10,6 +10,9 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
 import mx.maleficarum.brewcontrol.controller.BatchController;
+import mx.maleficarum.brewcommon.entity.Batch;
+import java.util.Arrays;
+import java.util.List;
 
 import java.net.URISyntaxException;
 
@@ -39,22 +42,10 @@ class BatchTests {
 	}
 
 	@Test
-	void testTransfer() throws JSONException, URISyntaxException {
-		/*JSONObject user = new JSONObject();
-		user.put("source", "admin");
-		user.put("amount", "12345");
-		user.put("cardToken", "ABCD");
-
-
-		HttpEntity<String> request = new HttpEntity<String>(user.toString(), headers);
-		ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:" + this.port + "/gateway/services/transfers/transfer", request, String.class);
-		JSONObject json = new JSONObject(response.getBody());
-
-		assertThat(response).isNotNull();
-		assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(400));//Expected to be this response code
-		assertThat(json.getString("statusCode")).isEqualTo("CL2200");//Expected to be this error
-		*/
-	}	
+	void fetchBatches() {
+		Batch[] batches = restTemplate.getForObject("/api/v1/batches/list", Batch[].class);
+    	List<Batch> batchesList = Arrays.asList(batches);
+	}
 
 
 }

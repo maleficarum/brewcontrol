@@ -43,7 +43,7 @@ public class BatchController {
     @Operation(summary = "Fetch all batches",  description = "Get all batches")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful operation")})
     @GetMapping(value = "/list", produces = "application/json")
-    public ResponseEntity<Iterable<Batch>> getBatches() {
+    public ResponseEntity<List<Batch>> getBatches() {
         return ResponseEntity.ok(batchService.getAllBatches());
     }
 
