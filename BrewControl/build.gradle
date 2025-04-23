@@ -1,5 +1,6 @@
 dependencies {
 	implementation project(':BrewCommon')
+	implementation 'org.postgresql:postgresql'
 }
 
 springBoot {
