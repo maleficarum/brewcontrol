@@ -1,4 +1,4 @@
-package mx.maleficarum.brewcommon.eos;
+package mx.maleficarum.brewcommon.entity.utils;
 
 /**
  * The beer yeast style

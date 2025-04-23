@@ -19,10 +19,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.beans.factory.annotation.Autowired;
+import mx.maleficarum.brewcontrol.service.BatchService;
 
 import java.util.List;
 
-import mx.maleficarum.brewcommon.eos.Batch;
+import mx.maleficarum.brewcommon.entity.Batch;
 
 /**
  * The batch REST Controller
@@ -35,11 +37,14 @@ import mx.maleficarum.brewcommon.eos.Batch;
 @RequestMapping("/api/v1/batches")
 public class BatchController {
 
+    @Autowired
+    private BatchService batchService;
+
     @Operation(summary = "Fetch all batches",  description = "Get all batches")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful operation")})
     @GetMapping(value = "/list", produces = "application/json")
-    public ResponseEntity<List<Batch>> getBatches() {
-        return ResponseEntity.ok(java.util.Collections.EMPTY_LIST);
+    public ResponseEntity<Iterable<Batch>> getBatches() {
+        return ResponseEntity.ok(batchService.getAllBatches());
     }
 
     @Operation(summary = "Create a batch",  description = "Create a new brewing batch")

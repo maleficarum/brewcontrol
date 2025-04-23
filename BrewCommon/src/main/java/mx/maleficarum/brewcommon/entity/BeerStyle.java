@@ -1,8 +1,8 @@
-package mx.maleficarum.brewcommon.eos;
+package mx.maleficarum.brewcommon.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
+import mx.maleficarum.brewcommon.entity.utils.BeerType;
 /**
  * The beer style according BJCP
  * 

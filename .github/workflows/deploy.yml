@@ -28,6 +28,14 @@ jobs:
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+            - name: Cache SonarQube packages
+              uses: actions/cache@v4
+              with:
+                path: ~/.sonar/cache
+                key: ${{ runner.os }}-sonar
+                restore-keys: ${{ runner.os }}-sonar
+
             - name: 'Run tests'
               run: cd ${GITHUB_WORKSPACE}/applications/brewcontrol && ~/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle test
               shell: bash
+
