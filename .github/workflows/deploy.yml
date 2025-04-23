@@ -1,5 +1,4 @@
 name: On pull request
-env:
 
 on:
     workflow_dispatch:
