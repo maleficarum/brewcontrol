@@ -1,0 +1,14 @@
+dependencies {
+	implementation project(':BrewCommon')
+}
+
+springBoot {
+	mainClass = 'mx.maleficarum.brewcontrol.BrewControlApplication'
+}
+
+test {
+	testLogging {
+		showStandardStreams = true
+	}
+	testLogging.showStandardStreams = true
+}
