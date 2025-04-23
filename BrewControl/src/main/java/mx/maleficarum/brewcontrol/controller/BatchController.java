@@ -52,7 +52,7 @@ public class BatchController {
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity createBatch(@RequestBody Batch batch) {
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.ok(batchService.createBatch(batch));
     }    
     
 }

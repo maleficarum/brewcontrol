@@ -1,5 +1,5 @@
 CREATE TABLE BATCH (
-    id SERIAL PRIMARY KEY,
+    id integer NOT NULL DEFAULT nextval('batch_seq') PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     style VARCHAR(50) NOT NULL,
     size_liters DECIMAL(6, 2) NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE BATCH (
     yeast_strain VARCHAR(50),
     fermentation_temperature_c DECIMAL(4, 1),
     notes TEXT,
-    status VARCHAR(20) CHECK (status IN ('planned', 'brewing', 'fermenting', 'conditioning', 'bottled', 'completed')),
+    status INT CHECK (status IN (0,1,2,3,4,5)),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
@@ -30,3 +30,5 @@ CREATE TRIGGER update_batch_date_trigger
 BEFORE UPDATE ON BATCH
 FOR EACH ROW
 EXECUTE FUNCTION update_batch_date();
+
+CREATE SEQUENCE batch_seq START 1;

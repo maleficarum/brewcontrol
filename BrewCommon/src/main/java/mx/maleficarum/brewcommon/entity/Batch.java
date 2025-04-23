@@ -1,11 +1,14 @@
 package mx.maleficarum.brewcommon.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Data;
+import lombok.ToString;
 import java.util.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -29,14 +32,17 @@ import mx.maleficarum.brewcommon.entity.utils.BatchStatus;
  * @author Oscar Hernandez [ o at maleficarum dot mx ] 
  */
 
+@NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Data
 @Entity
 @Table(name = "batch")
 public class Batch {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "batch_generator")
+    @SequenceGenerator(name = "batch_generator", sequenceName = "batch_seq", allocationSize = 1)    
     private Long id;
 
     @Column(name = "name", nullable = false, length = 100)
@@ -76,7 +82,7 @@ public class Batch {
     private String notes;
 
     @Enumerated(EnumType.ORDINAL)
-    @Column(name = "status", length = 20)
+    @Column(name = "status")
     private BatchStatus status;
 
     @Column(name = "created_at", updatable = false)
