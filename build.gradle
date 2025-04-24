@@ -54,7 +54,7 @@ allprojects {
         
         	// Binary directories
 	        property "sonar.java.binaries", "build/classes/java/main"
-    	    property "sonar.java.test.binaries", "build/classes/java/test"
+    	    //property "sonar.java.test.binaries", "build/classes/java/test"
         
         	// Test reports
         	property "sonar.junit.reportPaths", "build/test-results/test"
