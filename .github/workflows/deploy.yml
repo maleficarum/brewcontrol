@@ -48,6 +48,7 @@ jobs:
             - name: Build and push
               uses: docker/build-push-action@v6
               with:
-                context: ${GITHUB_WORKSPACE}/BrewControl
+                file: ./BrewControl/Dockerfile
+                context: .
                 push: true
                 tags: maleficarum/brewcontrol:latest
