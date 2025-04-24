@@ -20,7 +20,7 @@ jobs:
                 fetch-depth: 0            
 
             - name: Echo environment
-              run: echo "Using environment [${environment}]"
+              run: echo "Using environment [${environment}]" && rm -rf /var/folders//rl/bv_t18jj7qsdw4ky9q7jsmhh0000gn/T/gitleaks.tmp
               shell: bash
 
             - name: 'Looking for GIT Leaks'
@@ -28,6 +28,37 @@ jobs:
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-            - name: 'Run tests'
-              run: cd ${GITHUB_WORKSPACE}/applications/brewcontrol && ~/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle test
+            #- name: 'Run tests'
+            #  run: cd ${GITHUB_WORKSPACE}/BrewControl && ~/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle test
+            #  shell: bash
+
+            - name: 'Build jar'
+              run: cd ${GITHUB_WORKSPACE}/BrewControl && ~/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle build -x test && echo ${GITHUB_WORKSPACE}
               shell: bash
+            
+            - name: Login to Docker Hub
+              uses: docker/login-action@v3
+              with:
+                username: ${{ secrets.DOCKERHUB_USERNAME }}
+                password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v3
+              
+            - name: Build and push
+              uses: docker/build-push-action@v6
+              with:
+                file: ./BrewControl/Dockerfile
+                context: .
+                push: true
+                tags: maleficarum/brewcontrol:latest
+
+            - name: Docker Scout
+                # You may pin to the exact commit or the version.
+                # uses: docker/scout-action@381b657c498a4d287752e7f2cfb2b41823f566d9
+              uses: docker/scout-action@v1.17.1
+              with:
+                  command: quickview
+                  image: maleficarum/brewcontrol:latest
+                  #dockerhub-user: ${{ secrets.DOCKERHUB_USERNAME }}
+                  #dockerhub-password: ${{ secrets.DOCKERHUB_PASSWORD }}

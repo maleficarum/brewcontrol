@@ -1,7 +1,5 @@
 package mx.maleficarum.brewcontrol;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +8,14 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
 import mx.maleficarum.brewcontrol.controller.BatchController;
-
+import mx.maleficarum.brewcommon.entity.Batch;
+import mx.maleficarum.brewcommon.entity.utils.BatchStatus;
+import java.util.Arrays;
+import java.util.List;
+import java.math.BigDecimal;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -39,22 +43,16 @@ class BatchTests {
 	}
 
 	@Test
-	void testTransfer() throws JSONException, URISyntaxException {
-		/*JSONObject user = new JSONObject();
-		user.put("source", "admin");
-		user.put("amount", "12345");
-		user.put("cardToken", "ABCD");
+	void creteBatch() {
+		Batch batch = new Batch(null, "name", "style", BigDecimal.ONE, BigDecimal.ONE, BigDecimal.ONE, BigDecimal.ONE, LocalDate.now(), LocalDate.now(), LocalDate.now(), "yeast", BigDecimal.ZERO, "notes", BatchStatus.COMPLETED, LocalDateTime.now(), LocalDateTime.now());
+		batch = restTemplate.postForObject("/api/v1/batches/create", batch, Batch.class);
+		assertThat(batch.getId()).isNotNull();
+	}
 
-
-		HttpEntity<String> request = new HttpEntity<String>(user.toString(), headers);
-		ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:" + this.port + "/gateway/services/transfers/transfer", request, String.class);
-		JSONObject json = new JSONObject(response.getBody());
-
-		assertThat(response).isNotNull();
-		assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(400));//Expected to be this response code
-		assertThat(json.getString("statusCode")).isEqualTo("CL2200");//Expected to be this error
-		*/
-	}	
-
-
+	@Test
+	void fetchBatches() {
+		Batch[] batches = restTemplate.getForObject("/api/v1/batches/list", Batch[].class);
+    	List<Batch> batchesList = Arrays.asList(batches);
+		assertThat(batchesList.size()).isGreaterThan(0);
+	}
 }

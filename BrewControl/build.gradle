@@ -13,3 +13,10 @@ test {
 	}
 	testLogging.showStandardStreams = true
 }
+
+jar {
+    enabled = true
+	manifest {
+    	attributes 'Main-Class': 'mx.maleficarum.brewcontrol.BrewControlApplication'
+  	}		
+}
