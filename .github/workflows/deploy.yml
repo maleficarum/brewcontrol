@@ -33,7 +33,7 @@ jobs:
             #  shell: bash
 
             - name: 'Build jar'
-              run: cd ${GITHUB_WORKSPACE}/BrewControl && ~/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle build -x test
+              run: cd ${GITHUB_WORKSPACE}/BrewControl && ~/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle build -x test && echo ${GITHUB_WORKSPACE}
               shell: bash
             
             - name: Login to Docker Hub
