@@ -1,4 +1,6 @@
 name: On pull request
+env:
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 on:
     workflow_dispatch:
@@ -51,14 +53,17 @@ jobs:
                 file: ./BrewControl/Dockerfile
                 context: .
                 push: true
-                tags: maleficarum/brewcontrol:latest
+                tags: maleficarum/brewcontrol:${{ github.sha }}
 
             - name: Docker Scout
-                # You may pin to the exact commit or the version.
-                # uses: docker/scout-action@381b657c498a4d287752e7f2cfb2b41823f566d9
               uses: docker/scout-action@v1.17.1
               with:
-                  command: quickview
-                  image: maleficarum/brewcontrol:latest
+                  command: quickview,cves,recommendations
+                  image: maleficarum/brewcontrol:${{ github.sha }}
                   #dockerhub-user: ${{ secrets.DOCKERHUB_USERNAME }}
                   #dockerhub-password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+            - name: SonarQube
+              run: cd ${GITHUB_WORKSPACE}/ && ~/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle sonar
+              shell: bash
+              
