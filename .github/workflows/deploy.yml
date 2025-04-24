@@ -64,6 +64,6 @@ jobs:
                   #dockerhub-password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
             - name: SonarQube
-              run: cd ${GITHUB_WORKSPACE}/ && ./gradlew sonar
+              run: cd ${GITHUB_WORKSPACE}/ && ~/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle sonar
               shell: bash
               
