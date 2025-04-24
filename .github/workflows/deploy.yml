@@ -29,11 +29,11 @@ jobs:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: 'Run tests'
-              run: cd ${GITHUB_WORKSPACE}/brewcontrol/BrewControl && ~/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle test
+              run: cd ${GITHUB_WORKSPACE}/BrewControl && ~/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle test
               shell: bash
 
             - name: 'Build jar'
-              run: cd ${GITHUB_WORKSPACE}/brewcontrol/BrewControl && ~/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle build
+              run: cd ${GITHUB_WORKSPACE}/BrewControl && ~/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle build
               shell: bash
             
             - name: Login to Docker Hub
@@ -48,6 +48,6 @@ jobs:
             - name: Build and push
               uses: docker/build-push-action@v6
               with:
-                context: ${GITHUB_WORKSPACE}/brewcontrol/BrewControl
+                context: ${GITHUB_WORKSPACE}/BrewControl
                 push: true
                 tags: maleficarum/brewcontrol:latest
