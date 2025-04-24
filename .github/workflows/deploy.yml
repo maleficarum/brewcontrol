@@ -20,7 +20,7 @@ jobs:
                 fetch-depth: 0            
 
             - name: Echo environment
-              run: echo "Using environment [${environment}]" && find /var/folders/ -name gitleaks.tmp -exec rm -rf '{}' \; 2> /dev/null
+              run: echo "Using environment [${environment}]" && rm -rf /var/folders//rl/bv_t18jj7qsdw4ky9q7jsmhh0000gn/T/gitleaks.tmp
               shell: bash
 
             - name: 'Looking for GIT Leaks'
