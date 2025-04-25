@@ -10,6 +10,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories("mx.maleficarum.brewcontrol.repository")
 public class BrewControlApplication {
 
+	public BrewControlApplication() {
+
+	}
+
+
 	public static void main(String[] args) {
 		SpringApplication.run(BrewControlApplication.class, args);
 	}
