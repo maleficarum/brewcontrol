@@ -49,7 +49,7 @@ allprojects {
         	property "sonar.login", System.getenv("SONAR_TOKEN")
         	property "sonar.java.source", "21"
 			property "sonar.sources", "src/main/java"
-        	property "sonar.tests", "src/test/java"
+//        	property "sonar.tests", "src/test/java"
         	property "sonar.sourceEncoding", "UTF-8"
         
         	// Binary directories
