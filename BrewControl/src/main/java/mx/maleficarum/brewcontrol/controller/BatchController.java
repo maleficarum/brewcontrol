@@ -4,15 +4,11 @@ package mx.maleficarum.brewcontrol.controller;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -39,6 +35,7 @@ public class BatchController {
 
     @Autowired
     private BatchService batchService;
+    private final Logger log = LoggerFactory.getLogger(BatchController.class);
 
     @Operation(summary = "Fetch all batches",  description = "Get all batches")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful operation")})
@@ -51,8 +48,12 @@ public class BatchController {
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful operation")})
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity createBatch(@RequestBody Batch batch) {
-        return ResponseEntity.ok(batchService.createBatch(batch));
+    public ResponseEntity<Batch> createBatch(@RequestBody Batch batch) {
+        batch = batchService.createBatch(batch);
+
+        log.info("Created batch ", batch);
+
+        return ResponseEntity.ok(batch);
     }    
     
 }

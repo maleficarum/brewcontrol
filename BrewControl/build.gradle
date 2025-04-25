@@ -1,6 +1,8 @@
 dependencies {
 	implementation project(':BrewCommon')
 	implementation 'org.postgresql:postgresql'
+	implementation 'io.micrometer:micrometer-tracing-bridge-otel'
+	implementation 'io.opentelemetry:opentelemetry-exporter-otlp'
 }
 
 springBoot {

@@ -9,7 +9,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.postgresql.util.PSQLException;
 import jakarta.transaction.Transactional;
 
 /**
@@ -38,6 +37,10 @@ public class BatchService {
      * Save new batch generating ids
      */
     public Batch createBatch(Batch batch) {
-        return batchRepository.save(batch);
+        batch = batchRepository.save(batch);
+
+        log.debug("Created batch ", batch);
+
+        return batch;
     }
 }
